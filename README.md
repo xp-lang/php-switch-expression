@@ -28,6 +28,20 @@ public function serialize($arg) {
 }
 ```
 
+Installation
+------------
+After installing the XP Compiler into your project, also include this plugin.
+
+```bash
+$ composer require xp-framework/compiler
+# ...
+
+$ composer require xp-lang/php-switch-expression
+# ...
+```
+
+No further action is required.
+
 See also
 --------
 * https://blog.codefx.org/java/switch-expressions/
