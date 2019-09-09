@@ -1,5 +1,5 @@
-Switch statement for PHP
-========================
+Switch expression for PHP
+=========================
 
 [![Build Status on TravisCI](https://secure.travis-ci.org/xp-lang/php-switch-expression.svg)](http://travis-ci.org/xp-lang/php-switch-expression)
 [![XP Framework Module](https://raw.githubusercontent.com/xp-framework/web/master/static/xp-framework-badge.png)](https://github.com/xp-framework/core)

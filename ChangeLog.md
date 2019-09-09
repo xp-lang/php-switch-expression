@@ -1,9 +1,9 @@
-Switch statement for PHP - ChangeLog
-====================================
+Switch expression for PHP - ChangeLog
+=====================================
 
 ## ?.?.? / ????-??-??
 
-## 0.2.0 / 2019-09-09
+## 0.2.0 / ????-??-??
 
 * Updated dependency to newest version of `xp-framework/compiler`, see
   https://github.com/xp-framework/compiler/releases/tag/v4.0.0
