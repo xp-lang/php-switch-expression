@@ -1,9 +1,9 @@
 <?php namespace lang\ast\syntax\php;
 
 use lang\ast\ArrayType;
-use lang\ast\Element;
 use lang\ast\FunctionType;
 use lang\ast\MapType;
+use lang\ast\Node;
 use lang\ast\Type;
 use lang\ast\nodes\ArrayLiteral;
 use lang\ast\nodes\Assignment;
@@ -80,7 +80,7 @@ class SwitchExpression implements Extension {
     // Transforms case body into an expression by turning statement lists into an IIFE,
     // should that be necessary.
     $asExpr= function($body) {
-      if ($body instanceof Element) {
+      if ($body instanceof Node) {
         return $body;
       } else {
         return new InvokeExpression(new Braced(new LambdaExpression(new Signature([], null), $body)), []);
