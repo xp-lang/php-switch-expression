@@ -8,6 +8,7 @@ Switch statement for PHP - ChangeLog
 * Updated dependency to newest version of `xp-framework/compiler`, see
   https://github.com/xp-framework/compiler/releases/tag/v4.0.0
   (@thekid)
+* Added support for PHP 5.6 - @thekid
 
 ## 0.1.0 / 2019-09-09
 
