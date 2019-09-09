@@ -30,6 +30,6 @@ public function serialize($arg) {
 
 See also
 --------
-https://blog.codefx.org/java/switch-expressions/
-https://kotlinlang.org/docs/reference/control-flow.html#when-expression
-https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-8.0/patterns#switch-expression
+* https://blog.codefx.org/java/switch-expressions/
+* https://kotlinlang.org/docs/reference/control-flow.html#when-expression
+* https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-8.0/patterns#switch-expression
