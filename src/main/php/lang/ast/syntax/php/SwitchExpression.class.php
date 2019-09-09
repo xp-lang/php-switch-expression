@@ -26,7 +26,7 @@ use lang\ast\syntax\Extension;
 class SwitchExpression implements Extension {
 
   public function setup($language, $emitter) {
-    $language->prefix('switch', function($parse, $token) {
+    $language->prefix('switch', 0, function($parse, $token) {
       $parse->expecting('(', 'switch');
       $condition= $this->expression($parse, 0);
       $parse->expecting(')', 'switch');
