@@ -3,7 +3,7 @@
   "type" : "library",
   "homepage" : "http://xp-framework.net/",
   "license" : "BSD-3-Clause",
-  "description" : "Switch statement for PHP",
+  "description" : "Switch expression for PHP",
   "keywords": ["language", "module", "xp"],
   "require" : {
     "xp-framework/core": "^9.0 | ^8.0 | ^7.0",
