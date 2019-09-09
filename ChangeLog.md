@@ -3,7 +3,7 @@ Switch expression for PHP - ChangeLog
 
 ## ?.?.? / ????-??-??
 
-## 0.2.0 / ????-??-??
+## 0.2.0 / 2019-09-09
 
 * Updated dependency to newest version of `xp-framework/compiler`, see
   https://github.com/xp-framework/compiler/releases/tag/v4.0.0
