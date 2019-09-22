@@ -57,14 +57,12 @@ class SwitchExpression implements Extension {
         $parse->expecting('=>', 'switch');
         if ('{' === $parse->token->value) {
           $parse->forward();
-          $return= $this->statements($parse);
+          $cases[]= new CaseBlock($expr, $this->statements($parse));
           $parse->expecting('}', 'switch');
         } else {
-          $return= $this->expression($parse, 0);
+          $cases[]= new CaseExpression($expr, $this->expression($parse, 0));
           $parse->expecting(';', 'switch');
         }
-
-        $cases[]= new CaseLabel($expr, $return);
       }
       $parse->forward();
 
@@ -77,17 +75,7 @@ class SwitchExpression implements Extension {
       return $stmt;
     });
 
-    // Transforms case body into an expression by turning statement lists into an IIFE,
-    // should that be necessary.
-    $asExpr= function($body) {
-      if ($body instanceof Node) {
-        return $body;
-      } else {
-        return new InvokeExpression(new Braced(new LambdaExpression(new Signature([], null), $body)), []);
-      }
-    };
-
-    $emitter->transform('switchexpr', function($codegen, $node) use($asExpr) {
+    $emitter->transform('switchexpr', function($codegen, $node) {
       static $is= [
         'string'   => true,
         'int'      => true,
@@ -104,9 +92,9 @@ class SwitchExpression implements Extension {
       $ternary= new TernaryExpression(null, null, null);
       $ptr= &$ternary;
       foreach ($node->cases as $case) {
-        if (null === $case->expression) {
-          $ptr->otherwise= $asExpr($case->body);
-        } else foreach ($case->expression as $i => $expr) {
+        if (null === $case->conditions) {
+          $ptr->otherwise= $case->expression();
+        } else foreach ($case->conditions as $i => $expr) {
           if ($expr instanceof FunctionType || $expr instanceof ArrayType || $expr instanceof MapType) {
             $cond= new InvokeExpression(new Literal('is'), [new Literal('"'.$expr->name().'"'), $t]);
           } else if ($expr instanceof Type) {
@@ -120,7 +108,7 @@ class SwitchExpression implements Extension {
             $cond= new BinaryExpression($t, '===', $expr);
           }
 
-          $ptr->otherwise= new Braced(new TernaryExpression($cond, $asExpr($case->body), null));
+          $ptr->otherwise= new Braced(new TernaryExpression($cond, $case->expression(), null));
           $ptr= &$ptr->otherwise->expression;
         }
       }
