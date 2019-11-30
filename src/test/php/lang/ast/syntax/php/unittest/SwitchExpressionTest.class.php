@@ -4,6 +4,7 @@ use lang\IllegalArgumentException;
 use lang\Runnable;
 use lang\ast\Errors;
 use lang\ast\unittest\emit\EmittingTest;
+use unittest\Assert;
 
 class SwitchExpressionTest extends EmittingTest {
 
@@ -32,7 +33,7 @@ class SwitchExpressionTest extends EmittingTest {
   #  [null, 'void'],
   #])]
   public function exact_comparison($arg, $expected) {
-    $this->assertEquals($expected, $this->typeFixture()->newInstance()->run($arg));
+    Assert::equals($expected, $this->typeFixture()->newInstance()->run($arg));
   }
 
   #[@test, @values([
@@ -40,7 +41,7 @@ class SwitchExpressionTest extends EmittingTest {
   #  ['Test', 'string'],
   #])]
   public function native_type_comparison($arg, $expected) {
-    $this->assertEquals($expected, $this->typeFixture()->newInstance()->run($arg));
+    Assert::equals($expected, $this->typeFixture()->newInstance()->run($arg));
   }
 
   #[@test, @values([
@@ -48,19 +49,19 @@ class SwitchExpressionTest extends EmittingTest {
   #  [['Test'], 'strings'],
   #])]
   public function array_type_comparison($arg, $expected) {
-    $this->assertEquals($expected, $this->typeFixture()->newInstance()->run($arg));
+    Assert::equals($expected, $this->typeFixture()->newInstance()->run($arg));
   }
 
   #[@test]
   public function value_type_comparison() {
-    $this->assertEquals('runnable-instance', $this->typeFixture()->newInstance()->run(newinstance(Runnable::class, [], [
+    Assert::equals('runnable-instance', $this->typeFixture()->newInstance()->run(newinstance(Runnable::class, [], [
       'run' => function() { }
     ])));
   }
 
   #[@test]
   public function function_type_comparison() {
-    $this->assertEquals('runnable-function', $this->typeFixture()->newInstance()->run(function(Runnable $a) { }));
+    Assert::equals('runnable-function', $this->typeFixture()->newInstance()->run(function(Runnable $a) { }));
   }
 
   #[@test, @expect(IllegalArgumentException::class)]
@@ -99,6 +100,6 @@ class SwitchExpressionTest extends EmittingTest {
         };
       }
     }');
-    $this->assertEquals(2, $r);
+    Assert::equals(2, $r);
   }
 }
