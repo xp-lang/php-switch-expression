@@ -3,6 +3,12 @@ Switch expression for PHP - ChangeLog
 
 ## ?.?.? / ????-??-??
 
+## 1.0.0 / 2019-11-30
+
+* Implemented xp-framework/rfc#334: Drop PHP 5.6. The minimum required
+  PHP version is now 7.0.0!
+  (@thekid)
+
 ## 0.3.0 / 2019-09-22
 
 * Refactored code to use specialized `lang.ast.Node` subclasses instead of
