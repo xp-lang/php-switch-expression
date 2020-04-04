@@ -102,7 +102,7 @@ class SwitchExpression implements Extension {
             if (isset($is[$type])) {
               $cond= new InvokeExpression(new Literal('is_'.$type), [$t]);
             } else {
-              $cond= new InstanceOfExpression($t, new Literal($type));
+              $cond= new InstanceOfExpression($t, $type);
             }
           } else {
             $cond= new BinaryExpression($t, '===', $expr);
