@@ -1,27 +1,26 @@
 <?php namespace lang\ast\syntax\php;
 
-use lang\ast\ArrayType;
-use lang\ast\FunctionType;
-use lang\ast\MapType;
-use lang\ast\Node;
-use lang\ast\Type;
-use lang\ast\nodes\ArrayLiteral;
-use lang\ast\nodes\Assignment;
-use lang\ast\nodes\BinaryExpression;
-use lang\ast\nodes\Braced;
-use lang\ast\nodes\CaseLabel;
-use lang\ast\nodes\InstanceOfExpression;
-use lang\ast\nodes\InvokeExpression;
-use lang\ast\nodes\LambdaExpression;
-use lang\ast\nodes\Literal;
-use lang\ast\nodes\NewExpression;
-use lang\ast\nodes\OffsetExpression;
-use lang\ast\nodes\Signature;
-use lang\ast\nodes\SwitchStatement;
-use lang\ast\nodes\TernaryExpression;
-use lang\ast\nodes\ThrowExpression;
-use lang\ast\nodes\Variable;
+use lang\ast\nodes\{
+  ArrayLiteral,
+  Assignment,
+  BinaryExpression,
+  Braced,
+  CaseLabel,
+  InstanceOfExpression,
+  InvokeExpression,
+  LambdaExpression,
+  Literal,
+  NewExpression,
+  OffsetExpression,
+  Signature,
+  SwitchStatement,
+  TernaryExpression,
+  ThrowExpression,
+  Variable
+};
 use lang\ast\syntax\Extension;
+use lang\ast\types\{IsArray, IsMap, IsFunction};
+use lang\ast\{Node, Type};
 
 class SwitchExpression implements Extension {
 
@@ -95,7 +94,7 @@ class SwitchExpression implements Extension {
         if (null === $case->conditions) {
           $ptr->otherwise= $case->expression();
         } else foreach ($case->conditions as $i => $expr) {
-          if ($expr instanceof FunctionType || $expr instanceof ArrayType || $expr instanceof MapType) {
+          if ($expr instanceof IsFunction || $expr instanceof IsArray || $expr instanceof IsMap) {
             $cond= new InvokeExpression(new Literal('is'), [new Literal('"'.$expr->name().'"'), $t]);
           } else if ($expr instanceof Type) {
             $type= $expr->literal();

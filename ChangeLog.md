@@ -3,6 +3,10 @@ Switch expression for PHP - ChangeLog
 
 ## ?.?.? / ????-??-??
 
+## 1.0.2 / 2020-10-04
+
+* Fixed compatibility with AST types API - @thekid
+
 ## 1.0.1 / 2020-04-04
 
 * Fixed emitting errors for `instanceof` - @thekid
