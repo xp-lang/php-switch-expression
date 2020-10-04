@@ -1,10 +1,9 @@
 <?php namespace lang\ast\syntax\php\unittest;
 
-use lang\IllegalArgumentException;
-use lang\Runnable;
 use lang\ast\Errors;
 use lang\ast\unittest\emit\EmittingTest;
-use unittest\Assert;
+use lang\{IllegalArgumentException, Runnable};
+use unittest\{Assert, Expect, Test, Values};
 
 class SwitchExpressionTest extends EmittingTest {
 
@@ -27,49 +26,39 @@ class SwitchExpressionTest extends EmittingTest {
     }');
   }
 
-  #[@test, @values([
-  #  [true, 'bool'],
-  #  [false, 'bool'],
-  #  [null, 'void'],
-  #])]
+  #[Test, Values([[true, 'bool'], [false, 'bool'], [null, 'void'],])]
   public function exact_comparison($arg, $expected) {
     Assert::equals($expected, $this->typeFixture()->newInstance()->run($arg));
   }
 
-  #[@test, @values([
-  #  [1, 'integer'],
-  #  ['Test', 'string'],
-  #])]
+  #[Test, Values([[1, 'integer'], ['Test', 'string'],])]
   public function native_type_comparison($arg, $expected) {
     Assert::equals($expected, $this->typeFixture()->newInstance()->run($arg));
   }
 
-  #[@test, @values([
-  #  [[1], 'integers'],
-  #  [['Test'], 'strings'],
-  #])]
+  #[Test, Values([[[1], 'integers'], [['Test'], 'strings'],])]
   public function array_type_comparison($arg, $expected) {
     Assert::equals($expected, $this->typeFixture()->newInstance()->run($arg));
   }
 
-  #[@test]
+  #[Test]
   public function value_type_comparison() {
     Assert::equals('runnable-instance', $this->typeFixture()->newInstance()->run(newinstance(Runnable::class, [], [
       'run' => function() { }
     ])));
   }
 
-  #[@test]
+  #[Test]
   public function function_type_comparison() {
     Assert::equals('runnable-function', $this->typeFixture()->newInstance()->run(function(Runnable $a) { }));
   }
 
-  #[@test, @expect(IllegalArgumentException::class)]
+  #[Test, Expect(IllegalArgumentException::class)]
   public function unhandled() {
     $this->typeFixture()->newInstance()->run($this);
   }
 
-  #[@test, @expect(IllegalArgumentException::class)]
+  #[Test, Expect(IllegalArgumentException::class)]
   public function without_default_case() {
     $this->run('class <T> {
       public function run() {
@@ -81,7 +70,7 @@ class SwitchExpressionTest extends EmittingTest {
     }');
   }
 
-  #[@test, @expect(Errors::class)]
+  #[Test, Expect(Errors::class)]
   public function empty_switch_does_not_compile() {
     $this->type('class <T> {
       public function run() {
@@ -90,7 +79,7 @@ class SwitchExpressionTest extends EmittingTest {
     }');
   }
 
-  #[@test]
+  #[Test]
   public function execute_blocks() {
     $r= $this->run('class <T> {
       public function run() {
